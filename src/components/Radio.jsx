@@ -7,12 +7,16 @@ import Display from "./Display";
 class Radio extends Component {
 
     state = {
-        frequency: 87.9,
+        frequency: 93.1,
         volume: 0,
         draggable: "false",
-
+        dragIcon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" className="bi bi-grip-vertical" viewBox="0 0 16 16">
+        <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+      </svg>,
+        showCancelIcon: false
     }
 
+    // Handler for Display component, called in Control component
     handleDisplayChange = (freq) => {
         this.setState({
             frequency: freq
@@ -80,6 +84,18 @@ class Radio extends Component {
         }
     }
 
+    handleSaveIntent = () => {
+        this.setState({
+            showCancelIcon: true
+        })
+    }
+
+    handleCancelSave = () => {
+        this.setState({
+            showCancelIcon: false
+        })
+    }
+
 
     render() {
         return (
@@ -93,6 +109,10 @@ class Radio extends Component {
                 handleDragLeave={this.handleDragLeave}
                 handleDrop={this.handleDrop}
                 isDraggable={this.state.draggable}
+                dragIcon={this.state.dragIcon}
+                saveIntent={this.handleSaveIntent}
+                cancelSave={this.handleCancelSave}
+                showCancelIcon={this.state.showCancelIcon}
                 />
                 <Control frequency={this.state.frequency} 
                 onFrequencyChange={this.handleDisplayChange}
@@ -104,6 +124,9 @@ class Radio extends Component {
                 handleDragLeave={this.handleDragLeave}
                 handleDrop={this.handleDrop}
                 isDraggable={this.state.draggable}
+                showCancelIcon={this.state.showCancelIcon}
+                cancelSave={this.handleCancelSave}
+                dragIcon={this.state.dragIcon}
                 />
             </div>
         )

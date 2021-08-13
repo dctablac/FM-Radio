@@ -9,11 +9,11 @@
     --radio-background-color: rgba(0,0,0,.5);
     --panel-background-color: rgb(37, 36, 36);
     --display-background-color: #D9D55B;
-    --save-btn-background-color: hsl(0, 93%, 34%);
-    --save-btn-hover-background-color: red;
-    --go-btn-bg-color: green;
-    --go-btn-hover-bg-color: lightgreen;
+    --save-btn-background-color: rgb(8, 91, 247);
+    --cancel-btn-bg-color: red;
+    --go-btn-bg-color: rgb(8, 91, 247);
     --content-border-radius: 0.5em;
+    --knob-color: whitesmoke;
 }
 
 #root {
@@ -24,7 +24,7 @@
     display: flex;
     background-color: var(--app-background-color);
     width: 100vw;
-    height: 100%;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
 }
@@ -32,6 +32,7 @@
 #radio {
     height: 80vh;
     width: 90vw;
+    min-height: 550px;
     border: 1px solid black;
     border-radius: var(--content-border-radius);
     background-color: var(--radio-background-color);
@@ -51,14 +52,14 @@
     margin: 1em 0;
     padding: 1em;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    transition: border 0.3s linear;
+    transition: border 0.3s linear, display 0.3s linear;
 }
 
 #screen {
     background-color: var(--display-background-color);
-    border: 1px solid black;
+    border: 10px solid black;
     border-radius: var(--content-border-radius);
     height: 60%;
     width: 75%;
@@ -71,11 +72,6 @@
 
 #screen p {
     width: 100%;
-}
-
-#screen span {
-    margin-left: 0.5em;
-
 }
 
 #screen p:first-child {
@@ -97,27 +93,72 @@
     border-radius: var(--content-border-radius);
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    opacity: 0.85;
+    transition: background-color 0.3s, opacity 0.3s;
     font-weight: bold;
+    font-size: 2vw;
     letter-spacing: 2px;
+    padding: 2%;
+    height: 100%;
+    width: 100%;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+#display-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
+    width: 50%;
 }
 
 #btn-save {
-    height: 3em;
-    width: 5em;
-    letter-spacing: 2px;
     background-color: var(--save-btn-background-color);
 }
 
-#btn-save:hover {
-    background-color: var(--save-btn-hover-background-color);
+#btn-cancel {
+    background-color: var(--cancel-btn-bg-color);
+}
+
+#speakers-container {
+    display: flex;
+    height: 30%;
+    width: 100%;
+
+    margin-top: 1em;
+    justify-content: space-evenly;
+}
+
+.speakers {
+    border: 5px solid var(--radio-background-color);
+    border-radius: var(--content-border-radius);
+    display: flex;
+    height: 100%;
+    width: 40%;
+}
+
+.speaker {
+    height: 100%;
+    width: 5%;
+    margin-left: 2px;
+    
+    justify-content: stretch;
+    background-color: var(--radio-background-color);
+}
+.speaker:last-child {
+    margin-right: 2px;
 }
 
 #saved-stations {
+    border-radius: var(--content-border-radius);
     display: flex;
-    width: 100%;
     height: 50%;
-    flex-wrap: wrap;
+    padding: 2%;
+    width: 100%;
 }
 
 .saved-station {
@@ -126,61 +167,86 @@
     justify-content: center;
     align-items: center;
     width: 33.33%;
-    padding: 5px;
 }
 
 .station-display {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    color: black;
-    font-weight: bold;
     background-color: var(--display-background-color);
-    height: 50%;
-    width: 80%;
     border-radius: var(--content-border-radius);
-}
-
-.btn-go {
-    margin-top: 5px;
+    color: black;
+    display: flex;
+    font-size: 4vw;
+    font-weight: bold;
     height: 50%;
+    justify-content: center;
     width: 80%;
-    cursor: pointer;
-    background-color: var(--go-btn-bg-color);
+    
 }
 
-.btn-go:hover {
-    background-color: var(--go-btn-hover-bg-color);
+.btn-restore {
+    background-color: var(--go-btn-bg-color);
+    height: 100%;
+    margin-top: 5px;
+    max-width: 200px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #knobs {
+    align-items: center;
     display: flex;
-    width: 100%;
     justify-content: space-evenly;
+    height: 50%;
+    width: 100%;
+}
+
+#frequency-slider-container {
+    display: flex;
+    width: 50%;
+    
     align-items: center;
 }
 
 #frequency-slider {
-    width: 50%;
+    height: 50%;
+    width: 100%;
+
+    appearance: none;
+    background-color: var(--radio-background-color);
+    border-radius: var(--content-border-radius);
+    opacity: 0.5;
+
+    transition: opacity 0.2s linear;
 }
 
-#frequency-slider input {
-    width: 100%;
+#frequency-slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 5vh;
+    width: 4vw;
+
+    background-color: var(--knob-color);
+    border-radius: var(--content-border-radius);
+    cursor: grabbing;
+}
+
+#frequency-slider:hover {
+    opacity: 1;
 }
 
 #volume {
-    height: 100px;
+    height: 100%;
     width: 50%;
-    border: 1px solid blue;
+    border: 1px solid yellow;
 }
 
 .drag-icon {
     height: 3vh;
-    width: 8vw;
-    background-color: orange;
+    width: 3vw;
     margin-left: auto;
+    margin-right: 1%;
     cursor: move;
 }
+
 
 @media(min-width: 1030px) {
     #radio {
@@ -192,10 +258,19 @@
         width: 45%;
     }
     #frequency-value {
-        font-size: 8vw;
+        font-size: 7vw;
     }
     #screen span {
         margin-left: 0.2em;
+    }
+    #saved-stations {
+        flex-wrap: wrap;
+    }
+    .saved-station:nth-child(n+4) {
+        margin-top: 2%;
+    }
+    .station-display {
+        font-size: 2vw;
     }
 }
 
@@ -211,4 +286,30 @@
     #screen span {
         font-size: 5vw;
     }
+
+    #frequency-slider::-webkit-slider-thumb {
+        width: 6vw;
+    }
+}
+
+@media (max-width: 350px) {
+    #knobs {
+        height: 30%;
+    }
+    .drag-icon {
+        height: 0;
+    }
+    #saved-stations {
+        flex-wrap: wrap;
+    }
+    .saved-station {
+        height: 50%;
+    }
+    .saved-station:nth-child(n+4) {
+        margin-top: 7%;
+    }
+    #btn-save {
+        font-size: 0.8em;
+    }
+   
 }
