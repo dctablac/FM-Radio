@@ -40,6 +40,10 @@ class Control extends Component {
         
     }
 
+    changeVolume = (e) => {
+        console.log(e.clientX);
+    }
+
     render() {
         return (
             <div id="control" className="panel" 
@@ -112,7 +116,13 @@ class Control extends Component {
                         onChange={this.handleFrequencyChange} min={this.state.min} 
                         max={this.state.max} step={this.state.step}/>
                     </div>
-                    <div id="volume"></div>
+                    <div id="volume">
+                        <div id="volume-knob"
+                        onMouseDown={this.changeVolume}
+                        >
+                            <div id="volume-arm"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

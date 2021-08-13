@@ -30,7 +30,6 @@
 }
 
 #radio {
-    height: 80vh;
     width: 90vw;
     min-height: 550px;
     border: 1px solid black;
@@ -137,7 +136,6 @@
     border: 5px solid var(--radio-background-color);
     border-radius: var(--content-border-radius);
     display: flex;
-    height: 100%;
     width: 40%;
 }
 
@@ -162,6 +160,7 @@
 }
 
 .saved-station {
+    border-radius: var(--content-border-radius);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -234,9 +233,37 @@
 }
 
 #volume {
+    display: flex;
     height: 100%;
+    justify-content: center;
+    align-items: center;
     width: 50%;
     border: 1px solid yellow;
+}
+
+#volume-knob {
+    display: flex;
+    border-radius: 50%;
+    border: 10px double black;
+    height: 70px;
+    width: 70px;
+    background-color: var(--knob-color);
+    opacity: 0.7;
+    transition: opacity 0.2s linear;
+    cursor: grabbing;
+}
+
+#volume-knob:hover {
+    opacity: 1;
+}
+
+#volume-arm {
+    border-top: 5px solid orangered;
+    position: relative;
+    top: 50%;
+    width: 50%;
+    transform: rotate(-60deg) translateY(-5%);
+    transform-origin: top right;
 }
 
 .drag-icon {
@@ -271,6 +298,10 @@
     }
     .station-display {
         font-size: 2vw;
+    }
+    #volume-knob {
+        height: 150px;
+        width: 150px;
     }
 }
 
@@ -312,4 +343,18 @@
         font-size: 0.8em;
     }
    
+}
+
+@media (min-width: 900px) {
+    #volume-knob {
+        height: 150px;
+        width: 150px;
+    }
+}
+
+@media (min-height: 1000px) {
+    #volume-knob {
+        height: 150px;
+        width: 150px;
+    }
 }
