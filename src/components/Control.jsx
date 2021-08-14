@@ -25,9 +25,7 @@ class Control extends Component {
         volume_down_icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-dash-square" viewBox="0 0 16 16">
         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
         <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-      </svg>,
-        scrolled: false
-        
+      </svg>
     };
 
     handleFrequencyChange = (event) => {
@@ -68,61 +66,58 @@ class Control extends Component {
             onDragLeave={this.props.handleDragLeave}
             onDrop={this.props.handleDrop}
             >
+
                 <div id="drag-control" className="drag-icon" 
                 onMouseEnter={this.props.handleMouseEnter}
                 onMouseLeave={this.props.handleMouseLeave}>
                     {this.props.dragIcon}
                 </div>
+
                 <div id="saved-stations">
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station1}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(1)}>
+                        <p className="saved-station-display">{this.state.station1}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(1)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                             </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station2}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(2)}>
+                        <p className="saved-station-display">{this.state.station2}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(2)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station3}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(3)}>
+                        <p className="saved-station-display">{this.state.station3}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(3)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station4}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(4)}>
+                        <p className="saved-station-display">{this.state.station4}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(4)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station5}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(5)}>
+                        <p className="saved-station-display">{this.state.station5}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(5)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station6}</p>
-                        <button className="btn btn-restore" 
-                        onClick={() => this.handleSaveStationClick(6)}>
+                        <p className="saved-station-display">{this.state.station6}</p>
+                        <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(6)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
                 </div>
+
                 <div id="knobs">
                     <div id="frequency-slider-container">
                         <input type="range" name="frequency-knob" 
@@ -130,7 +125,7 @@ class Control extends Component {
                         onChange={this.handleFrequencyChange} min={this.state.min} 
                         max={this.state.max} step={this.state.step}/>
                     </div>
-                    <div id="volume">
+                    <div id="volume-knob-container">
                         <div className="volume-btn" onClick={this.props.volumeDown}>
                             {this.state.volume_down_icon}
                         </div>
@@ -143,6 +138,7 @@ class Control extends Component {
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }

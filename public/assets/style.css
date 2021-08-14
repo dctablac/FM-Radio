@@ -17,6 +17,8 @@
     --knob-color: whitesmoke;
 }
 
+/********** GENERAL STYLES **********/
+
 #root {
     height: 100vh;
 }
@@ -57,41 +59,6 @@
     transition: border 0.3s linear, display 0.3s linear;
 }
 
-#screen {
-    background-color: var(--display-background-color);
-    border: 10px solid black;
-    border-radius: var(--content-border-radius);
-    height: 60%;
-    width: 75%;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-}
-
-#screen p {
-    width: 100%;
-}
-
-#screen p:first-child {
-    padding-left: 10px;
-    font-size: 1.5em;
-}
-
-#screen p:nth-child(3) {
-    font-size: 1.5em;
-    text-align: end;
-    height: 100%;
-}
-
-#frequency-value {
-    font-size: 12vw;
-    text-align: center;
-}
-
-#frequency-value span {
-    font-size: 4vw;
-}
-
 .btn {
     border: none;
     border-radius: var(--content-border-radius);
@@ -111,22 +78,42 @@
     opacity: 1;
 }
 
-#display-btn-container {
+/********** DISPLAY COMPONENT **********/
+
+/*** SCREEN STYLES ***/
+
+#screen {
+    background-color: var(--display-background-color);
+    border: 10px solid black;
+    border-radius: var(--content-border-radius);
+    height: 60%;
+    width: 75%;
+    padding: 2em;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2%;
-    width: 50%;
 }
 
-#btn-save {
-    background-color: var(--save-btn-background-color);
+#fm-tag {
+    font-size: 1.5em;
+    padding-left: 10px;
 }
 
-#btn-cancel {
-    background-color: var(--cancel-btn-bg-color);
+#screen-frequency-value {
+    font-size: 12vw;
+    text-align: center;
 }
+
+#MHz-tag {
+    font-size: 4vw;
+}
+
+#screen-volume-tag {
+    font-size: 1.5em;
+    text-align: end;
+    height: 100%;
+}
+
+/*** SPEAKER STYLES ***/
 
 #speakers-container {
     display: flex;
@@ -144,7 +131,7 @@
     width: 40%;
 }
 
-.speaker {
+.speaker-line {
     height: 100%;
     width: 5%;
     margin-left: 2px;
@@ -152,9 +139,33 @@
     justify-content: stretch;
     background-color: var(--radio-background-color);
 }
-.speaker:last-child {
+.speaker-line:last-child {
     margin-right: 2px;
 }
+
+/*** MAIN SAVE BTN ***/
+
+#display-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
+    width: 50%;
+}
+
+#btn-save {
+    background-color: var(--save-btn-background-color);
+}
+
+#btn-cancel {
+    background-color: var(--cancel-btn-bg-color);
+}
+
+
+/********** CONTROL COMPONENT **********/
+
+/*** SAVED STATIONS ***/
 
 #saved-stations {
     border-radius: var(--content-border-radius);
@@ -173,7 +184,7 @@
     width: 33.33%;
 }
 
-.station-display {
+.saved-station-display {
     align-items: center;
     background-color: var(--display-background-color);
     border-radius: var(--content-border-radius);
@@ -196,6 +207,8 @@
     margin-right: 5px;
 }
 
+/**** RADIO KNOBS ****/
+
 #knobs {
     align-items: center;
     display: flex;
@@ -203,6 +216,8 @@
     height: 50%;
     width: 100%;
 }
+
+/*** FREQUENCY SLIDER ***/
 
 #frequency-slider-container {
     display: flex;
@@ -237,7 +252,9 @@
     opacity: 1;
 }
 
-#volume {
+/*** VOLUME KNOB ***/
+
+#volume-knob-container {
     display: flex;
     height: 100%;
     justify-content: space-evenly;
@@ -295,12 +312,14 @@
 
 .volume-btn:hover {
     opacity: 1;
-    transform: scale(1.2)
+    transform: scale(1.2);
 }
 
 .volume-btn:active {
-    transform: scale(1)
+    transform: scale(1);
 }
+
+/*** DRAG INDICATOR ***/
 
 .drag-icon {
     height: 3vh;
@@ -310,7 +329,9 @@
     cursor: move;
 }
 
+/********** MEDIA QUERIES **********/
 
+/* Mobile landscape view or desktop views */
 @media(min-width: 1030px) {
     #radio {
         flex-direction: row;
@@ -320,10 +341,10 @@
         height: 80%;
         width: 45%;
     }
-    #frequency-value {
+    #screen-frequency-value {
         font-size: 6vw;
     }
-    #screen span {
+    #MHz-tag {
         margin-left: 0.2em;
     }
     #saved-stations {
@@ -332,34 +353,34 @@
     .saved-station:nth-child(n+4) {
         margin-top: 2%;
     }
-    .station-display {
+    .saved-station-display {
         font-size: 2vw;
     }
 }
 
+/* Medium sized phones or screen split */
 @media(max-width: 650px) {
-
-    #screen p:nth-child(3) {
+    #screen-volume-tag {
         font-size: 1em;
     }
-
-    #frequency-value {
-        font-size: 10vw;
+    #screen-frequency-value {
+        font-size: 8vw;
     }
-
-    #screen span {
+    #MHz-tag {
         font-size: 5vw;
     }
-
     #frequency-slider::-webkit-slider-thumb {
         width: 6vw;
     }
-
     #volume-knob-tooltip {
         font-size: 0.5em;
     }
+    #btn-save {
+        font-size: 1em;
+    }
 }
 
+/* Small phones */
 @media (max-width: 350px) {
     #knobs {
         height: 30%;
@@ -379,17 +400,15 @@
     #btn-save {
         font-size: 0.8em;
     }
-    #volume-knob-tooltip {
-        display: none;
-    }
     .btn {
-        font-size: 1em;
+        font-size: 0.7em;
     }
-    #screen p:nth-child(3) {
+    #screen-volume-tag {
         font-size: 0.7em;
     }
    
 }
+
 
 @media (min-width: 900px) {
     #volume-knob {
@@ -398,14 +417,13 @@
     }
 }
 
+/* Ipad/tablets */
 @media (min-height: 1000px) {
-
-    #screen p:nth-child(3) {
+    #screen-volume-tag {
         font-size: 2em;
     }
-
     #volume-knob {
-        height: 150px;
-        width: 150px;
+        height: 125px;
+        width: 125px;
     }
 }
