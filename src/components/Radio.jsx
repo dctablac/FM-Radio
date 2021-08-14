@@ -9,6 +9,10 @@ class Radio extends Component {
     state = {
         frequency: 93.1,
         volume: 0,
+        volumeToAngle: {0: -60, 1: -30, 2: 0, 3: 30, 
+            4: 60, 5: 90, 6: 120, 7: 150, 
+            8: 180, 9: 210, 10: 240},
+        volumeArm: <div id="volume-arm"></div>,
         draggable: "false",
         dragIcon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" className="bi bi-grip-vertical" viewBox="0 0 16 16">
         <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -30,7 +34,7 @@ class Radio extends Component {
         })
     }
 
-    // Handle mosue leaving drag icon
+    // Handle mouse leaving drag icon
     handleMouseLeave = () => {
         this.setState({
             draggable: "false"
@@ -84,23 +88,56 @@ class Radio extends Component {
         }
     }
 
+    // Shows cancel icon underneath save station button
     handleSaveIntent = () => {
         this.setState({
             showCancelIcon: true
         })
     }
 
+    // Hides cancel save button
     handleCancelSave = () => {
         this.setState({
             showCancelIcon: false
         })
     }
 
+    adjustVolumeKnob = () => {
+        const volume = this.state.volume;
+        const volumeToAngle = this.state.volumeToAngle;
+
+        const newStyle = {'transform': 'rotate('+volumeToAngle[volume]+'deg) translateY(-5%)'}
+
+        let newVolumeArm = <div id="volume-arm" style={newStyle}></div>
+
+        this.setState({
+            volumeArm: newVolumeArm
+        })
+    }
+
+    handleVolumeDown = () => {
+        const currVolume = this.state.volume;
+        if (currVolume > 0) {
+            this.setState({
+                volume: currVolume - 1
+            }, this.adjustVolumeKnob);
+            
+        }
+    }
+
+    handleVolumeUp = () => {
+        const currVolume = this.state.volume;
+        if (currVolume < 10) {
+            this.setState({
+                volume: currVolume + 1
+            }, this.adjustVolumeKnob);
+        }
+    }
 
     render() {
         return (
             <div id="radio">
-                <Display frequency={this.state.frequency} 
+                <Display frequency={this.state.frequency}
                 handleMouseEnter={this.handleMouseEnter}
                 handleMouseLeave={this.handleMouseLeave}
                 handleDragStart={this.handleDragStart}
@@ -113,6 +150,7 @@ class Radio extends Component {
                 saveIntent={this.handleSaveIntent}
                 cancelSave={this.handleCancelSave}
                 showCancelIcon={this.state.showCancelIcon}
+                volume={this.state.volume}
                 />
                 <Control frequency={this.state.frequency} 
                 onFrequencyChange={this.handleDisplayChange}
@@ -127,6 +165,10 @@ class Radio extends Component {
                 showCancelIcon={this.state.showCancelIcon}
                 cancelSave={this.handleCancelSave}
                 dragIcon={this.state.dragIcon}
+                volume={this.state.volume}
+                volumeArm={this.state.volumeArm}
+                volumeDown={this.handleVolumeDown}
+                volumeUp={this.handleVolumeUp}
                 />
             </div>
         )

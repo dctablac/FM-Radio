@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -38,7 +39,7 @@
     box-shadow: 0 5px 5px 1px black;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -65,8 +66,6 @@
     padding: 2em;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
 }
 
 #screen p {
@@ -75,7 +74,13 @@
 
 #screen p:first-child {
     padding-left: 10px;
-    font-size: 2.5vw;
+    font-size: 1.5em;
+}
+
+#screen p:nth-child(3) {
+    font-size: 1.5em;
+    text-align: end;
+    height: 100%;
 }
 
 #frequency-value {
@@ -235,35 +240,66 @@
 #volume {
     display: flex;
     height: 100%;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 50%;
-    border: 1px solid yellow;
 }
 
 #volume-knob {
+    position: relative;
     display: flex;
     border-radius: 50%;
     border: 10px double black;
-    height: 70px;
-    width: 70px;
+    box-shadow: 0 5px 10px 1px black;
+    height: 50px;
+    width: 50px;
     background-color: var(--knob-color);
-    opacity: 0.7;
-    transition: opacity 0.2s linear;
-    cursor: grabbing;
+    opacity: 0.85;
+    cursor: pointer;
 }
 
-#volume-knob:hover {
-    opacity: 1;
+#volume-knob-tooltip {
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    font-size: 1em;
+    position: absolute;
+    top: 115%;
+    left: 10%;
+    padding: 5%;
+    font-weight: bold;
+    display: none;
+    width: 100px;
+    z-index: 1;
+}
+
+#volume-knob:hover #volume-knob-tooltip {
+    display: block;
 }
 
 #volume-arm {
     border-top: 5px solid orangered;
     position: relative;
     top: 50%;
-    width: 50%;
+    right: 11%;
+    width: 60%;
     transform: rotate(-60deg) translateY(-5%);
     transform-origin: top right;
+    transition-duration: 0.3s;
+}
+
+.volume-btn {
+    cursor: pointer;
+    opacity: 0.7;
+    transition-duration: 0.2s;
+}
+
+.volume-btn:hover {
+    opacity: 1;
+    transform: scale(1.2)
+}
+
+.volume-btn:active {
+    transform: scale(1)
 }
 
 .drag-icon {
@@ -285,7 +321,7 @@
         width: 45%;
     }
     #frequency-value {
-        font-size: 7vw;
+        font-size: 6vw;
     }
     #screen span {
         margin-left: 0.2em;
@@ -299,15 +335,12 @@
     .station-display {
         font-size: 2vw;
     }
-    #volume-knob {
-        height: 150px;
-        width: 150px;
-    }
 }
 
 @media(max-width: 650px) {
-    #screen p:first-child {
-        font-size: 1.5em;
+
+    #screen p:nth-child(3) {
+        font-size: 1em;
     }
 
     #frequency-value {
@@ -320,6 +353,10 @@
 
     #frequency-slider::-webkit-slider-thumb {
         width: 6vw;
+    }
+
+    #volume-knob-tooltip {
+        font-size: 0.5em;
     }
 }
 
@@ -342,17 +379,31 @@
     #btn-save {
         font-size: 0.8em;
     }
+    #volume-knob-tooltip {
+        display: none;
+    }
+    .btn {
+        font-size: 1em;
+    }
+    #screen p:nth-child(3) {
+        font-size: 0.7em;
+    }
    
 }
 
 @media (min-width: 900px) {
     #volume-knob {
-        height: 150px;
-        width: 150px;
+        height: 125px;
+        width: 125px;
     }
 }
 
 @media (min-height: 1000px) {
+
+    #screen p:nth-child(3) {
+        font-size: 2em;
+    }
+
     #volume-knob {
         height: 150px;
         width: 150px;

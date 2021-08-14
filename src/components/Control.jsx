@@ -3,21 +3,31 @@
 import { Component } from 'react';
 
 class Control extends Component {
-
+    
     state = {
         min: 87.9,
         max: 107.9,
         step: 0.2,
-        station_1: 87.9,
-        station_2: 87.9,
-        station_3: 87.9,
-        station_4: 87.9,
-        station_5: 87.9,
-        station_6: 87.9,
+        station1: 87.9,
+        station2: 87.9,
+        station3: 87.9,
+        station4: 87.9,
+        station5: 87.9,
+        station6: 87.9,
         restore_icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-play-circle" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
-      </svg>
+      </svg>,
+        volume_up_icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-plus-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>,
+        volume_down_icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-dash-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+      </svg>,
+        scrolled: false
+        
     };
 
     handleFrequencyChange = (event) => {
@@ -29,20 +39,24 @@ class Control extends Component {
     handleSaveStationClick = (slot) => {
         if (this.props.showCancelIcon) { // If cancel intent is made
             this.setState({
-                ["station_"+slot]: this.props.frequency
+                ["station"+slot]: this.props.frequency
             });
             this.props.cancelSave();
         }
         else { // Else set radio to saved frequency
-            let savedFrequency = this.state["station_"+slot];
+            let savedFrequency = this.state["station"+slot];
             this.props.onFrequencyChange(savedFrequency);
         }
-        
     }
 
-    changeVolume = (e) => {
-        console.log(e.clientX);
-    }
+    handleScroll = (e) => {
+        if (e.deltaY < 0) { // Scrolled up
+            this.props.volumeUp();
+        }
+        else {
+            this.props.volumeDown();
+        }
+    };
 
     render() {
         return (
@@ -61,7 +75,7 @@ class Control extends Component {
                 </div>
                 <div id="saved-stations">
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_1}</p>
+                        <p className="station-display">{this.state.station1}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(1)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -69,7 +83,7 @@ class Control extends Component {
                             </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_2}</p>
+                        <p className="station-display">{this.state.station2}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(2)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -77,7 +91,7 @@ class Control extends Component {
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_3}</p>
+                        <p className="station-display">{this.state.station3}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(3)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -85,7 +99,7 @@ class Control extends Component {
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_4}</p>
+                        <p className="station-display">{this.state.station4}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(4)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -93,7 +107,7 @@ class Control extends Component {
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_5}</p>
+                        <p className="station-display">{this.state.station5}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(5)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -101,7 +115,7 @@ class Control extends Component {
                         </button>
                     </div>
                     <div className="saved-station">
-                        <p className="station-display">{this.state.station_6}</p>
+                        <p className="station-display">{this.state.station6}</p>
                         <button className="btn btn-restore" 
                         onClick={() => this.handleSaveStationClick(6)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
@@ -117,10 +131,15 @@ class Control extends Component {
                         max={this.state.max} step={this.state.step}/>
                     </div>
                     <div id="volume">
-                        <div id="volume-knob"
-                        onMouseDown={this.changeVolume}
-                        >
-                            <div id="volume-arm"></div>
+                        <div className="volume-btn" onClick={this.props.volumeDown}>
+                            {this.state.volume_down_icon}
+                        </div>
+                        <div id="volume-knob" onWheel={this.handleScroll}>
+                            <p id="volume-knob-tooltip">Scroll or press buttons to change volume</p>
+                            {this.props.volumeArm}
+                        </div>
+                        <div className="volume-btn" onClick={this.props.volumeUp}>
+                            {this.state.volume_up_icon}
                         </div>
                     </div>
                 </div>
