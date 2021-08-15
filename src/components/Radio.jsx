@@ -7,7 +7,7 @@ import Display from "./Display";
 class Radio extends Component {
 
     state = {
-        frequency: 93.1,
+        frequency: 87.9,
         volume: 0,
         volumeToAngle: {0: -60, 1: -30, 2: 0, 3: 30, 
             4: 60, 5: 90, 6: 120, 7: 150, 
@@ -51,7 +51,7 @@ class Radio extends Component {
 
     // What happens when a panel is being dragged over
     handleDragOver = (ev) => {
-        ev.preventDefault();
+        ev.preventDefault(); // allows drop
         if (ev.target.className === "panel") {
             ev.target.style.border = "5px solid white";
         }
@@ -102,6 +102,7 @@ class Radio extends Component {
         })
     }
 
+    // Sets volume knob on UI according to volume in state
     adjustVolumeKnob = () => {
         const volume = this.state.volume;
         const volumeToAngle = this.state.volumeToAngle;
@@ -115,6 +116,7 @@ class Radio extends Component {
         })
     }
 
+    // Decrements volume in state
     handleVolumeDown = () => {
         const currVolume = this.state.volume;
         if (currVolume > 0) {
@@ -125,6 +127,7 @@ class Radio extends Component {
         }
     }
 
+    // Increments volume in state
     handleVolumeUp = () => {
         const currVolume = this.state.volume;
         if (currVolume < 10) {
@@ -137,7 +140,7 @@ class Radio extends Component {
     render() {
         return (
             <div id="radio">
-                <Display frequency={this.state.frequency}
+                <Display 
                 handleMouseEnter={this.handleMouseEnter}
                 handleMouseLeave={this.handleMouseLeave}
                 handleDragStart={this.handleDragStart}
@@ -145,14 +148,15 @@ class Radio extends Component {
                 handleDragEnd={this.handleDragEnd}
                 handleDragLeave={this.handleDragLeave}
                 handleDrop={this.handleDrop}
-                isDraggable={this.state.draggable}
-                dragIcon={this.state.dragIcon}
                 saveIntent={this.handleSaveIntent}
                 cancelSave={this.handleCancelSave}
+                frequency={this.state.frequency}
+                isDraggable={this.state.draggable}
                 showCancelIcon={this.state.showCancelIcon}
+                dragIcon={this.state.dragIcon}
                 volume={this.state.volume}
                 />
-                <Control frequency={this.state.frequency} 
+                <Control 
                 onFrequencyChange={this.handleDisplayChange}
                 handleMouseEnter={this.handleMouseEnter}
                 handleMouseLeave={this.handleMouseLeave}
@@ -161,14 +165,15 @@ class Radio extends Component {
                 handleDragEnd={this.handleDragEnd}
                 handleDragLeave={this.handleDragLeave}
                 handleDrop={this.handleDrop}
+                cancelSave={this.handleCancelSave}
+                volumeDown={this.handleVolumeDown}
+                volumeUp={this.handleVolumeUp}
+                frequency={this.state.frequency} 
                 isDraggable={this.state.draggable}
                 showCancelIcon={this.state.showCancelIcon}
-                cancelSave={this.handleCancelSave}
                 dragIcon={this.state.dragIcon}
                 volume={this.state.volume}
                 volumeArm={this.state.volumeArm}
-                volumeDown={this.handleVolumeDown}
-                volumeUp={this.handleVolumeUp}
                 />
             </div>
         )

@@ -78,6 +78,17 @@
     opacity: 1;
 }
 
+.tooltip {
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 2%;
+    transition: opacity 0.2s;
+    z-index: 1;
+    width: 100px;
+}
+
 /********** DISPLAY COMPONENT **********/
 
 /*** SCREEN STYLES ***/
@@ -194,8 +205,7 @@
     font-weight: bold;
     height: 50%;
     justify-content: center;
-    width: 80%;
-    
+    width: 95%;
 }
 
 .btn-restore {
@@ -220,9 +230,10 @@
 /*** FREQUENCY SLIDER ***/
 
 #frequency-slider-container {
+    position: relative;
     display: flex;
     width: 50%;
-    
+    opacity: 0.7;
     align-items: center;
 }
 
@@ -233,7 +244,7 @@
     appearance: none;
     background-color: var(--radio-background-color);
     border-radius: var(--content-border-radius);
-    opacity: 0.5;
+    opacity: 0.7;
 
     transition: opacity 0.2s linear;
 }
@@ -248,9 +259,16 @@
     cursor: grabbing;
 }
 
-#frequency-slider:hover {
+#frequency-slider-tooltip {
+    opacity: 0;
+    position: absolute;
+    top: 120%;
+}
+
+#frequency-slider-container:hover #frequency-slider-tooltip {
     opacity: 1;
 }
+
 
 /*** VOLUME KNOB ***/
 
@@ -260,6 +278,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 50%;
+    opacity: 0.7;
 }
 
 #volume-knob {
@@ -278,19 +297,14 @@
 #volume-knob-tooltip {
     background-color: rgba(0,0,0,.5);
     color: white;
-    font-size: 1em;
     position: absolute;
-    top: 115%;
+    top: 120%;
     left: 10%;
-    padding: 5%;
-    font-weight: bold;
-    display: none;
-    width: 100px;
-    z-index: 1;
+    opacity: 0;
 }
 
 #volume-knob:hover #volume-knob-tooltip {
-    display: block;
+    opacity: 1;
 }
 
 #volume-arm {
@@ -372,8 +386,8 @@
     #frequency-slider::-webkit-slider-thumb {
         width: 6vw;
     }
-    #volume-knob-tooltip {
-        font-size: 0.5em;
+    .tooltip {
+        font-size: 0.7em;
     }
     #btn-save {
         font-size: 1em;
@@ -425,5 +439,9 @@
     #volume-knob {
         height: 125px;
         width: 125px;
+    }
+    .tooltip {
+        font-size: 1.5em;
+        width: 250px;
     }
 }

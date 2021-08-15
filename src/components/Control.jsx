@@ -2,7 +2,31 @@
 
 import { Component } from 'react';
 
+const localStorage = require('local-storage');
+
 class Control extends Component {
+
+    componentDidMount = () => {
+        // First time loading the radio app
+        if (!localStorage.get("station1")) {
+            localStorage.set("station1",87.9);
+            localStorage.set("station2",87.9);
+            localStorage.set("station3",87.9);
+            localStorage.set("station4",87.9);
+            localStorage.set("station5",87.9);
+            localStorage.set("station6",87.9);
+        }
+        else { // Load saved stations into state
+            this.setState({
+                station1: localStorage.get("station1"),
+                station2: localStorage.get("station2"),
+                station3: localStorage.get("station3"),
+                station4: localStorage.get("station4"),
+                station5: localStorage.get("station5"),
+                station6: localStorage.get("station6")
+            })
+        }
+    }
     
     state = {
         min: 87.9,
@@ -28,6 +52,7 @@ class Control extends Component {
       </svg>
     };
 
+    // 
     handleFrequencyChange = (event) => {
         const newFrequency = event.target.value;
         this.props.onFrequencyChange(newFrequency)
@@ -35,10 +60,11 @@ class Control extends Component {
 
     // Save a station to the inputted slot
     handleSaveStationClick = (slot) => {
-        if (this.props.showCancelIcon) { // If cancel intent is made
+        if (this.props.showCancelIcon) { // First save btn clicked, cancel button shows
             this.setState({
                 ["station"+slot]: this.props.frequency
             });
+            localStorage.set("station"+slot,this.props.frequency);
             this.props.cancelSave();
         }
         else { // Else set radio to saved frequency
@@ -47,6 +73,7 @@ class Control extends Component {
         }
     }
 
+    // Handle wheel action while hovering over volume knob
     handleScroll = (e) => {
         if (e.deltaY < 0) { // Scrolled up
             this.props.volumeUp();
@@ -74,6 +101,7 @@ class Control extends Component {
                 </div>
 
                 <div id="saved-stations">
+
                     <div className="saved-station">
                         <p className="saved-station-display">{this.state.station1}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(1)}>
@@ -116,27 +144,39 @@ class Control extends Component {
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
+
                 </div>
 
                 <div id="knobs">
+
                     <div id="frequency-slider-container">
-                        <input type="range" name="frequency-knob" 
+
+                        <input type="range" name="frequency-slider" 
                         id="frequency-slider" value={this.props.frequency} 
                         onChange={this.handleFrequencyChange} min={this.state.min} 
                         max={this.state.max} step={this.state.step}/>
+                        <p id="frequency-slider-tooltip" className="tooltip">Drag slider to change frequency</p>
+                        
                     </div>
+                    
+
                     <div id="volume-knob-container">
-                        <div className="volume-btn" onClick={this.props.volumeDown}>
+
+                        <div id="volume-down" className="volume-btn" onClick={this.props.volumeDown}>
                             {this.state.volume_down_icon}
                         </div>
+
                         <div id="volume-knob" onWheel={this.handleScroll}>
-                            <p id="volume-knob-tooltip">Scroll or press buttons to change volume</p>
+                            <p id="volume-knob-tooltip" className="tooltip">Scroll or press buttons to change volume</p>
                             {this.props.volumeArm}
                         </div>
-                        <div className="volume-btn" onClick={this.props.volumeUp}>
+
+                        <div id="volume-up" className="volume-btn" onClick={this.props.volumeUp}>
                             {this.state.volume_up_icon}
                         </div>
+
                     </div>
+
                 </div>
 
             </div>
