@@ -7,13 +7,13 @@
 
 
 :root {
-    --app-background-color: rgba(0,0,0,.8);
-    --radio-background-color: rgba(0,0,0,.5);
-    --panel-background-color: rgb(37,36,36);
-    --display-background-color: linear-gradient(#D9D55B, rgba(192, 188, 86, 0.575));
-    --save-btn-background-color: linear-gradient(rgb(8, 91, 247), rgba(8, 92, 247, 0.575));
+    --app-bg-color: rgba(0,0,0,.8);
+    --radio-bg-color: rgba(0,0,0,.5);
+    --panel-bg-color: rgb(37,36,36);
+    --display-bg-color: linear-gradient(#D9D55B, rgba(192, 188, 86, 0.575));
+    --save-btn-bg-color: linear-gradient(rgb(8, 91, 247), rgba(8, 92, 247, 0.575));
     --cancel-btn-bg-color: linear-gradient(red,rgba(255, 0, 0, 0.575));
-    --go-btn-bg-color: linear-gradient(rgb(8, 91, 247), rgba(8, 92, 247, 0.575));
+    --restore-btn-bg-color: linear-gradient(rgb(8, 91, 247), rgba(8, 92, 247, 0.575));
     --content-border-radius: 0.5em;
     --knob-color: linear-gradient(whitesmoke,rgba(245, 245, 245, 0.575));
 }
@@ -26,7 +26,7 @@
 
 #app {
     display: flex;
-    background-color: var(--app-background-color);
+    background-color: var(--app-bg-color);
     width: 100vw;
     min-height: 100vh;
     justify-content: center;
@@ -38,7 +38,7 @@
     min-height: 550px;
     border: 1px solid black;
     border-radius: var(--content-border-radius);
-    background-color: var(--radio-background-color);
+    background-color: var(--radio-bg-color);
     box-shadow: 0 5px 5px 1px black;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
     display: flex;
     height: 100%;
     width: 90%;
-    background: var(--panel-background-color);
+    background: var(--panel-bg-color);
     border-radius: var(--content-border-radius);
     margin: 1em 0;
     padding: 1em;
@@ -95,7 +95,7 @@
 /*** SCREEN STYLES ***/
 
 #screen {
-    background: var(--display-background-color);
+    background: var(--display-bg-color);
     border: 10px solid black;
     border-radius: var(--content-border-radius);
     height: 60%;
@@ -137,7 +137,7 @@
 }
 
 .speakers {
-    border: 5px solid var(--radio-background-color);
+    border: 5px solid var(--radio-bg-color);
     border-radius: var(--content-border-radius);
     display: flex;
     width: 40%;
@@ -149,7 +149,7 @@
     margin-left: 2px;
     
     justify-content: stretch;
-    background-color: var(--radio-background-color);
+    background-color: var(--radio-bg-color);
 }
 .speaker-line:last-child {
     margin-right: 2px;
@@ -167,7 +167,7 @@
 }
 
 #btn-save {
-    background: var(--save-btn-background-color);
+    background: var(--save-btn-bg-color);
 }
 
 #btn-cancel {
@@ -198,7 +198,7 @@
 
 .saved-station-display {
     align-items: center;
-    background: var(--display-background-color);
+    background: var(--display-bg-color);
     border-radius: var(--content-border-radius);
     color: black;
     display: flex;
@@ -210,7 +210,7 @@
 }
 
 .btn-restore {
-    background: var(--go-btn-bg-color);
+    background: var(--restore-btn-bg-color);
     height: 100%;
     margin-top: 5px;
     max-width: 200px;
@@ -243,7 +243,7 @@
     width: 100%;
 
     appearance: none;
-    background: var(--radio-background-color);
+    background: var(--radio-bg-color);
     border-radius: var(--content-border-radius);
     opacity: 0.7;
 
