@@ -52,24 +52,24 @@ class Control extends Component {
       </svg>
     };
 
-    // 
+    // Change frequency in radio state
     handleFrequencyChange = (event) => {
         const newFrequency = event.target.value;
-        this.props.onFrequencyChange(newFrequency)
+        this.props.handleFrequencyChange(newFrequency);
     }
 
     // Save a station to the inputted slot
     handleSaveStationClick = (slot) => {
-        if (this.props.showCancelIcon) { // First save btn clicked, cancel button shows
+        if (this.props.showCancelIcon) { // Main save btn clicked, cancel button is showing
             this.setState({
-                ["station"+slot]: this.props.frequency
+                ["station" + slot]: this.props.frequency
             });
-            localStorage.set("station"+slot,this.props.frequency);
+            localStorage.set("station" + slot, this.props.frequency);
             this.props.cancelSave();
         }
         else { // Else set radio to saved frequency
-            let savedFrequency = this.state["station"+slot];
-            this.props.onFrequencyChange(savedFrequency);
+            let savedFrequency = this.state["station" + slot];
+            this.props.handleFrequencyChange(savedFrequency);
         }
     }
 
@@ -82,6 +82,49 @@ class Control extends Component {
             this.props.volumeDown();
         }
     };
+
+    // Change mouse move to rotate the volume knob
+    handleVolumeMouseDown = (e) => {
+        e.target.onmousemove = (ev) => {
+            if (e.target.id === "volume-knob") { // Avoids targeting volume arm
+                let knob = e.target;
+                let knobCenterX = knob.offsetLeft + (knob.offsetWidth/2);
+                let knobCenterY = knob.offsetTop + (knob.offsetHeight/2);
+                let cursorX = ev.clientX;
+                let cursorY = ev.clientY;
+                let newAngle = Math.atan2(cursorX - knobCenterX, - (cursorY - knobCenterY))*(180 / Math.PI);
+                if (newAngle < -60) {
+                    console.log("angle out of bounds");
+                }
+                else {
+                    knob.style.transform = `rotate(${newAngle}deg)`;
+                    this.props.changeVolumeDisplay(newAngle);
+                }
+            }
+        }
+    };
+
+    // Change touch move to rotate the volume knob
+    handleVolumeTouchStart = (e) => {
+        e.target.ontouchmove = (ev) => {
+            if (e.target.id === "volume-knob") {
+                let knob = e.target;
+                let knobCenterX = knob.offsetLeft + (knob.offsetWidth/2);
+                let knobCenterY = knob.offsetTop + (knob.offsetHeight/2);
+                let cursorX = ev.touches[0].clientX;
+                let cursorY = ev.touches[0].clientY;
+                let newAngle = Math.atan2(cursorX - knobCenterX, - (cursorY - knobCenterY))*(180 / Math.PI);
+                console.log(newAngle);
+                if (newAngle < -60) {
+                    console.log("angle out of bounds");
+                }
+                else {
+                    knob.style.transform = `rotate(${newAngle}deg)`;
+                    this.props.changeVolumeDisplay(newAngle);
+                }
+            }
+        }
+    }
 
     render() {
         return (
@@ -155,7 +198,6 @@ class Control extends Component {
                         id="frequency-slider" value={this.props.frequency} 
                         onChange={this.handleFrequencyChange} min={this.state.min} 
                         max={this.state.max} step={this.state.step}/>
-                        <p id="frequency-slider-tooltip" className="tooltip">Drag slider to change frequency</p>
                         
                     </div>
                     
@@ -166,10 +208,13 @@ class Control extends Component {
                             {this.state.volume_down_icon}
                         </div>
 
-                        <div id="volume-knob" onWheel={this.handleScroll}>
-                            <p id="volume-knob-tooltip" className="tooltip">Scroll or press buttons to change volume</p>
-                            {this.props.volumeArm}
+                        <div id="volume-knob" onWheel={this.handleScroll} 
+                        onMouseDown={this.handleVolumeMouseDown} onMouseUp={(e) => {e.target.onmousemove = null}}
+                        onMouseLeave={(e) => {e.target.onmousemove = null}} onTouchStart={this.handleVolumeTouchStart}
+                        onTouchEnd={(e) => {e.target.ontouchmove = null}}>
+                            <div id="volume-arm"></div>
                         </div>
+                        
 
                         <div id="volume-up" className="volume-btn" onClick={this.props.volumeUp}>
                             {this.state.volume_up_icon}

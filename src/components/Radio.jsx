@@ -7,12 +7,11 @@ import Display from "./Display";
 class Radio extends Component {
 
     state = {
-        frequency: 87.9,
+        frequency: 89.7,
         volume: 0,
-        volumeToAngle: {0: -60, 1: -30, 2: 0, 3: 30, 
-            4: 60, 5: 90, 6: 120, 7: 150, 
-            8: 180, 9: 210, 10: 240},
-        volumeArm: <div id="volume-arm"></div>,
+        volumeToAngle: {0: -60, 1: -36, 2: -12, 3: 12, 
+            4: 36, 5: 60, 6: 84, 7: 108, 
+            8: 132, 9: 156, 10: 180},
         draggable: "false",
         dragIcon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" className="bi bi-grip-vertical" viewBox="0 0 16 16">
         <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -20,8 +19,8 @@ class Radio extends Component {
         showCancelIcon: false
     }
 
-    // Handler for Display component, called in Control component
-    handleDisplayChange = (freq) => {
+    // Called in Control component
+    handleFrequencyChange = (freq) => {
         this.setState({
             frequency: freq
         })
@@ -102,38 +101,87 @@ class Radio extends Component {
         })
     }
 
-    // Sets volume knob on UI according to volume in state
-    adjustVolumeKnob = () => {
-        const volume = this.state.volume;
-        const volumeToAngle = this.state.volumeToAngle;
-
-        const newStyle = {'transform': 'rotate('+volumeToAngle[volume]+'deg) translateY(-5%)'}
-
-        let newVolumeArm = <div id="volume-arm" style={newStyle}></div>
-
-        this.setState({
-            volumeArm: newVolumeArm
-        })
-    }
-
     // Decrements volume in state
     handleVolumeDown = () => {
         const currVolume = this.state.volume;
+        const knob = document.getElementById("volume-knob");
+        const volumeToAngle = this.state.volumeToAngle;
         if (currVolume > 0) {
             this.setState({
-                volume: currVolume - 1
-            }, this.adjustVolumeKnob);
-            
+                volume: Math.floor(currVolume - 1)
+            }, () => {knob.style.transform = `rotate(${volumeToAngle[this.state.volume]}deg)`});
         }
     }
 
     // Increments volume in state
     handleVolumeUp = () => {
         const currVolume = this.state.volume;
+        const knob = document.getElementById("volume-knob");
+        const volumeToAngle = this.state.volumeToAngle;
         if (currVolume < 10) {
             this.setState({
-                volume: currVolume + 1
-            }, this.adjustVolumeKnob);
+                volume: Math.floor(currVolume + 1)
+            }, () => {knob.style.transform = `rotate(${volumeToAngle[this.state.volume]}deg)`});
+        }
+        
+    }
+
+    // Change the volume display when volume knob is turned
+    changeVolumeDisplay = (degree) => {
+        if (degree < -55) {
+            this.setState({
+                volume: 0
+            });
+        }
+        if (degree >= -36 && degree < -12) {
+            this.setState({
+                volume: 1
+            });
+        }
+        else if (degree >= -12 && degree < 12) {
+            this.setState({
+                volume: 2
+            });
+        }
+        else if (degree >= 12 && degree < 36) {
+            this.setState({
+                volume: 3
+            });
+        }
+        else if (degree >= 36 && degree < 60) {
+            this.setState({
+                volume: 4
+            });
+        }
+        else if (degree >= 60 && degree < 84) {
+            this.setState({
+                volume: 5
+            });
+        }
+        else if (degree >= 84 && degree < 108) {
+            this.setState({
+                volume: 6
+            });
+        }
+        else if (degree >= 108 && degree < 132) {
+            this.setState({
+                volume: 7
+            });
+        }
+        else if (degree >= 132 && degree < 156) {
+            this.setState({
+                volume: 8
+            });
+        }
+        else if (degree >= 156 && degree < 170) {
+            this.setState({
+                volume: 9
+            });
+        }
+        else if (degree > 170) {
+            this.setState({
+                volume: 10
+            });
         }
     }
 
@@ -157,7 +205,7 @@ class Radio extends Component {
                 volume={this.state.volume}
                 />
                 <Control 
-                onFrequencyChange={this.handleDisplayChange}
+                handleFrequencyChange={this.handleFrequencyChange}
                 handleMouseEnter={this.handleMouseEnter}
                 handleMouseLeave={this.handleMouseLeave}
                 handleDragStart={this.handleDragStart}
@@ -168,12 +216,12 @@ class Radio extends Component {
                 cancelSave={this.handleCancelSave}
                 volumeDown={this.handleVolumeDown}
                 volumeUp={this.handleVolumeUp}
+                changeVolumeDisplay={this.changeVolumeDisplay}
                 frequency={this.state.frequency} 
                 isDraggable={this.state.draggable}
                 showCancelIcon={this.state.showCancelIcon}
                 dragIcon={this.state.dragIcon}
                 volume={this.state.volume}
-                volumeArm={this.state.volumeArm}
                 />
             </div>
         )
