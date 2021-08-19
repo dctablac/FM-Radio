@@ -207,6 +207,14 @@
     background: var(--cancel-btn-bg-color);
 }
 
+#btn-loop-container {
+    width: 25%;
+}
+
+#btn-loop {
+    background: var(--save-btn-bg-color);
+}
+
 
 /********** CONTROL COMPONENT **********/
 

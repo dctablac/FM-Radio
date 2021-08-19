@@ -4,6 +4,8 @@ import { Component } from 'react';
 
 const localStorage = require('local-storage');
 
+var loopInterval;
+
 class Control extends Component {
 
     componentDidMount = () => {
@@ -49,8 +51,49 @@ class Control extends Component {
         volume_down_icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-dash-square" viewBox="0 0 16 16">
         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
         <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-      </svg>
+      </svg>,
+        isLoop: false
     };
+
+    // Update which saved station is active during loop
+    nextSavedStation = (station_num) => {
+        this.props.handleFrequencyChange(this.state[`station${station_num}`]);
+        document.getElementById(`station${station_num}`).style.border = "1px solid white";
+        
+        for (let i = 1; i <= 6; i++) {
+            if (i !== station_num) {
+                document.getElementById(`station${i}`).style.border = null;
+            }
+        }
+    }
+
+    // Loop through saved stations every 3 seconds
+    savedStationLoop = () => {
+        if (this.state.isLoop) {
+            this.setState({
+                isLoop: false
+            });
+            clearInterval(loopInterval);
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`station${i}`).style.border = null;
+            }
+        }
+        else { // Loop begin
+            let station_num = 1;
+            this.setState({
+                isLoop: true
+            });
+
+            this.nextSavedStation(station_num);
+            loopInterval = setInterval(() => {
+                station_num += 1;
+                if (station_num === 7) {
+                    station_num = 1;
+                }
+                this.nextSavedStation(station_num);
+            }, 3000);
+        }
+    }
 
     // Change frequency in radio state
     handleFrequencyChange = (event) => {
@@ -117,7 +160,7 @@ class Control extends Component {
                 let newAngle = Math.atan2(cursorX - knobCenterX, - (cursorY - knobCenterY))*(180 / Math.PI);
                 console.log(newAngle);
                 if (newAngle < -60) {
-                    console.log("angle out of bounds");
+                    return; // Do not change angle of knob
                 }
                 else {
                     knob.style.transform = `rotate(${newAngle}deg)`;
@@ -144,44 +187,51 @@ class Control extends Component {
                     {this.props.dragIcon}
                 </div>
 
+                <div id="btn-loop-container">
+                    <button id="btn-loop" className="btn" onClick={this.savedStationLoop}>
+                        {this.state.isLoop && "STOP"}
+                        {!this.state.isLoop && "SCAN"}
+                    </button>
+                </div>
+
                 <div id="saved-stations">
 
-                    <div className="saved-station">
+                    <div id="station1" className="saved-station">
                         <p className="saved-station-display">{this.state.station1}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(1)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                             </button>
                     </div>
-                    <div className="saved-station">
+                    <div id="station2" className="saved-station">
                         <p className="saved-station-display">{this.state.station2}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(2)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
-                    <div className="saved-station">
+                    <div id="station3" className="saved-station">
                         <p className="saved-station-display">{this.state.station3}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(3)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
-                    <div className="saved-station">
+                    <div id="station4" className="saved-station">
                         <p className="saved-station-display">{this.state.station4}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(4)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
-                    <div className="saved-station">
+                    <div id="station5" className="saved-station">
                         <p className="saved-station-display">{this.state.station5}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(5)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
                             {this.props.showCancelIcon && "SAVE"}
                         </button>
                     </div>
-                    <div className="saved-station">
+                    <div id="station6" className="saved-station">
                         <p className="saved-station-display">{this.state.station6}</p>
                         <button className="btn btn-restore" onClick={() => this.handleSaveStationClick(6)}>
                             {!this.props.showCancelIcon && this.state.restore_icon}
