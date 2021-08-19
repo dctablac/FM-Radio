@@ -88,10 +88,11 @@ class Control extends Component {
         e.target.onmousemove = (ev) => {
             if (e.target.id === "volume-knob") { // Avoids targeting volume arm
                 let knob = e.target;
+                // window.pageOffset added to account user scroll on page
                 let knobCenterX = knob.offsetLeft + (knob.offsetWidth/2);
                 let knobCenterY = knob.offsetTop + (knob.offsetHeight/2);
-                let cursorX = ev.clientX;
-                let cursorY = ev.clientY;
+                let cursorX = ev.clientX + window.pageXOffset;
+                let cursorY = ev.clientY + window.pageYOffset;
                 let newAngle = Math.atan2(cursorX - knobCenterX, - (cursorY - knobCenterY))*(180 / Math.PI);
                 if (newAngle < -60) {
                     console.log("angle out of bounds");
@@ -111,8 +112,8 @@ class Control extends Component {
                 let knob = e.target;
                 let knobCenterX = knob.offsetLeft + (knob.offsetWidth/2);
                 let knobCenterY = knob.offsetTop + (knob.offsetHeight/2);
-                let cursorX = ev.touches[0].clientX;
-                let cursorY = ev.touches[0].clientY;
+                let cursorX = ev.touches[0].clientX + window.pageXOffset;
+                let cursorY = ev.touches[0].clientY + + window.pageYOffset;;
                 let newAngle = Math.atan2(cursorX - knobCenterX, - (cursorY - knobCenterY))*(180 / Math.PI);
                 console.log(newAngle);
                 if (newAngle < -60) {

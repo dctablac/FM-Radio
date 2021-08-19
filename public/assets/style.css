@@ -21,14 +21,14 @@
 /********** GENERAL STYLES **********/
 
 #root {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #app {
     display: flex;
     flex-direction: column;
     background-color: var(--app-bg-color);
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     justify-content: center;
     align-items: center;
@@ -36,7 +36,7 @@
 }
 
 #radio {
-    width: 90vw;
+    width: 90%;
     min-height: 550px;
 
     border: 1px solid black;
@@ -89,11 +89,10 @@
 /********** TOOLTIP CONTENT **********/
 
 #tips-container {
-    border-radius: var(--content-border-radius);
-    position: relative;
     animation: grow;
-    height: 100%;
-    width: 100%;
+    height: 10%;
+    width: 90%;
+    top: -2%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -133,8 +132,8 @@
     border: 10px solid black;
     border-radius: var(--content-border-radius);
     height: 60%;
-    width: 75%;
-    padding: 2em;
+    width: 80%;
+    padding: 1em;
     display: flex;
     flex-direction: column;
 }
@@ -216,6 +215,7 @@
 #saved-stations {
     border-radius: var(--content-border-radius);
     display: flex;
+    flex-wrap: wrap;
     height: 50%;
     padding: 2%;
     width: 100%;
@@ -288,6 +288,7 @@
 
 #frequency-slider:hover {
     opacity: 1;
+    cursor: grab;
 }
 
 #frequency-slider::-webkit-slider-thumb {
@@ -390,6 +391,8 @@
     margin-left: auto;
     margin-right: 1%;
     cursor: move;
+
+    touch-action: none;
 }
 
 /********** MEDIA QUERIES **********/
@@ -408,7 +411,7 @@
         width: 45%;
     }
     #screen-frequency-value {
-        font-size: 6vw;
+        font-size: 5.5vw;
     }
     #MHz-tag {
         margin-left: 0.2em;
