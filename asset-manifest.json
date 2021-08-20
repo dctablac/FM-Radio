@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/FM-Radio/static/js/main.b974eada.chunk.js",
+    "main.js.map": "/FM-Radio/static/js/main.b974eada.chunk.js.map",
+    "runtime-main.js": "/FM-Radio/static/js/runtime-main.04ccd93f.js",
+    "runtime-main.js.map": "/FM-Radio/static/js/runtime-main.04ccd93f.js.map",
+    "static/js/2.466dc7a9.chunk.js": "/FM-Radio/static/js/2.466dc7a9.chunk.js",
+    "static/js/2.466dc7a9.chunk.js.map": "/FM-Radio/static/js/2.466dc7a9.chunk.js.map",
+    "index.html": "/FM-Radio/index.html",
+    "static/js/2.466dc7a9.chunk.js.LICENSE.txt": "/FM-Radio/static/js/2.466dc7a9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.04ccd93f.js",
+    "static/js/2.466dc7a9.chunk.js",
+    "static/js/main.b974eada.chunk.js"
+  ]
+}
