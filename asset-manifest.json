@@ -1,17 +1,20 @@
 {
   "files": {
-    "main.js": "/FM-Radio/static/js/main.b974eada.chunk.js",
-    "main.js.map": "/FM-Radio/static/js/main.b974eada.chunk.js.map",
-    "runtime-main.js": "/FM-Radio/static/js/runtime-main.04ccd93f.js",
-    "runtime-main.js.map": "/FM-Radio/static/js/runtime-main.04ccd93f.js.map",
-    "static/js/2.466dc7a9.chunk.js": "/FM-Radio/static/js/2.466dc7a9.chunk.js",
-    "static/js/2.466dc7a9.chunk.js.map": "/FM-Radio/static/js/2.466dc7a9.chunk.js.map",
-    "index.html": "/FM-Radio/index.html",
-    "static/js/2.466dc7a9.chunk.js.LICENSE.txt": "/FM-Radio/static/js/2.466dc7a9.chunk.js.LICENSE.txt"
+    "main.css": "/fm-radio/static/css/main.b33fbe60.chunk.css",
+    "main.js": "/fm-radio/static/js/main.73eebf14.chunk.js",
+    "main.js.map": "/fm-radio/static/js/main.73eebf14.chunk.js.map",
+    "runtime-main.js": "/fm-radio/static/js/runtime-main.1b2426bb.js",
+    "runtime-main.js.map": "/fm-radio/static/js/runtime-main.1b2426bb.js.map",
+    "static/js/2.466dc7a9.chunk.js": "/fm-radio/static/js/2.466dc7a9.chunk.js",
+    "static/js/2.466dc7a9.chunk.js.map": "/fm-radio/static/js/2.466dc7a9.chunk.js.map",
+    "index.html": "/fm-radio/index.html",
+    "static/css/main.b33fbe60.chunk.css.map": "/fm-radio/static/css/main.b33fbe60.chunk.css.map",
+    "static/js/2.466dc7a9.chunk.js.LICENSE.txt": "/fm-radio/static/js/2.466dc7a9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.04ccd93f.js",
+    "static/js/runtime-main.1b2426bb.js",
     "static/js/2.466dc7a9.chunk.js",
-    "static/js/main.b974eada.chunk.js"
+    "static/css/main.b33fbe60.chunk.css",
+    "static/js/main.73eebf14.chunk.js"
   ]
 }
